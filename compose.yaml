@@ -1,3 +1,4 @@
+# 아직 사용 안함 -> boot 기동 시 자동으로 해당 yaml 을 사용하여 docker compose 실행 (사용 시 pom.xml 주석 해제 필요)
 services:
   elasticsearch:
     image: 'docker.elastic.co/elasticsearch/elasticsearch:7.17.10'

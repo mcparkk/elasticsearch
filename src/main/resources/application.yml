@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: elasticsearch
+
+
+elastic:
+  search:
+    host: localhost
+    port: 9200
