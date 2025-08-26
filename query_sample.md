@@ -19,6 +19,7 @@
 }
 ```
 
+ex)1 
 ```json
 {
   "settings": {
@@ -29,7 +30,7 @@
       "tokenizer": {
         "autocomplete_tokenizer": {
           "type": "edge_ngram",
-          "min_gram": 2,
+          "min_gram": 1,
           "max_gram": 20,
           "token_chars": ["letter", "digit", "whitespace", "punctuation"]
         }
@@ -71,7 +72,7 @@
         "type": "text",
         "analyzer": "nori_ko",
         "fields": {
-          "autocomplete": {
+          "search": {
             "type": "text",
             "analyzer": "autocomplete_ko",
             "search_analyzer": "standard"
@@ -81,8 +82,9 @@
     }
   }
 }
-
 ```
+
+
 - Index Settings 
   - `number_of_shards`: 인덱스를 2개의 샤드로 분할하여 분산 저장 및 검색 성능 향상.
   - `number_of_replicas`: 각 샤드에 대해 0개의 복제본을 유지하여 고가용성 확보.(현재 싱글노드)

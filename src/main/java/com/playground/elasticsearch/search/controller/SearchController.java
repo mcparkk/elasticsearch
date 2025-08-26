@@ -10,7 +10,6 @@ import com.playground.elasticsearch.domain.dto.SearchDTO;
 import com.playground.elasticsearch.search.service.SearchService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -22,7 +21,7 @@ public class SearchController {
     private final ElasticsearchClient client;
     private final SearchService searchService;
 
-
+    // 콘텐츠 text 조회
     @PostMapping("/contents")
     public ApiResponse contents(@RequestBody SearchDTO<ContentDocument> param){
 
@@ -31,44 +30,12 @@ public class SearchController {
         return ApiResponse.ok(result);
     }
 
-    @GetMapping("/test")
-    public ApiResponse test(){
+    @PostMapping("/autoComplete")
+    public ApiResponse autoComplete(@RequestBody SearchDTO<ContentDocument> param){
 
-        Object result = null;
 
-        try{
-            SearchResponse<JsonData> response = client.search(s ->
-                            s.index("page")
-                                    .query(q -> q.matchAll(m -> m)),
-                    JsonData.class
-            );
 
-            result = response.hits().hits().toString();
-        }catch (Exception e){
-            String melong = "melong";
-        }
-
-        return ApiResponse.ok(result);
-    }
-
-    @GetMapping("/test1")
-    public ApiResponse test1(){
-
-        Object result = null;
-
-        try{
-            SearchResponse<JsonData> response = client.search(s ->
-                            s.index("kibana_sample_data_ecommerce")
-                                    .query(q -> q.matchAll(m -> m)),
-                    JsonData.class
-            );
-
-            result = response.hits().hits().toString();
-        }catch (Exception e){
-            String melong = "melong";
-        }
-
-        return ApiResponse.ok(result);
+        return ApiResponse.ok(true);
     }
 
     // TODO: 인덱스 전체 조회

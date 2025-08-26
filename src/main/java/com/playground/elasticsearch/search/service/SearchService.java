@@ -24,16 +24,9 @@ public class SearchService {
 
             String indexName = new ContentDocument().getIndexName();
 
-//            SearchResponse<ContentDocument> response = client.search(s -> s
-//                            .index(indexName)
-//                            .query(q -> q
-//                                    .matchAll(m -> m)),
-//                            ContentDocument.class
-//            );
-
             SearchResponse<ContentDocument> response = client.search(s -> s
                             .index(indexName)
-                            .query(q -> q.match(m -> m.field("combined")
+                            .query(q -> q.match(m -> m.field("combined.search")
                                                     .query(dto.getSearchText()))),
                             ContentDocument.class
             );
@@ -43,7 +36,9 @@ public class SearchService {
             dto.setDocuments(list);
 
         }catch (Exception e){
-            String melong = "melong";
+            // TODO : Biz Exception
+            log.error("searchContent Error : {}", e.getMessage());
+
         }
 
         return dto;

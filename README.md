@@ -19,6 +19,7 @@
 - 가능하다면 자동 완성 + api request 인증 
 - 
 
+
 ### Note 
 - full text query : match 쿼리
 - 전략 패턴 사용

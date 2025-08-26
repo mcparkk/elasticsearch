@@ -11,7 +11,7 @@ import java.util.List;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class SampleIndexStratgy implements IndexStrategy<SampleDocument> {
+public class SampleIndexStrategy implements IndexStrategy<SampleDocument> {
 
     private final ElasticsearchClient elasticsearchClient;
 

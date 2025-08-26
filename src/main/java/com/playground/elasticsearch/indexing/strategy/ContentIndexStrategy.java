@@ -9,6 +9,7 @@ import com.playground.elasticsearch.domain.dto.ContentDocument;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ObjectUtils;
 
 import java.io.IOException;
 import java.util.List;
@@ -50,13 +51,14 @@ public class ContentIndexStrategy implements IndexStrategy<ContentDocument> {
             
             // BulkOperation 리스트 생성
             List<BulkOperation> operations = documents.stream()
-                .map(document -> BulkOperation.of(b -> b
-                    .index(IndexOperation.of(i -> i
-                        .index(indexName)
-                        .id(document.getId())
-                        .document(document)
-                    ))
-                ))
+                .map(document -> {
+                    return BulkOperation.of(b -> b
+                            .index(IndexOperation.of(i -> i
+                                    .index(indexName)
+                                    .id(document.getId())
+                                    .document(document))));
+                        }
+                )
                 .collect(Collectors.toList());
             
             // BulkRequest 생성
@@ -84,6 +86,8 @@ public class ContentIndexStrategy implements IndexStrategy<ContentDocument> {
             }
             
         } catch (IOException e) {
+            // TODO : Biz Exception
+            // TODO : Error handling
             log.error("ContentDocument bulk indexing fail: count - {}, error={}",
                 documents.size(), e.getMessage(), e);
             throw new RuntimeException("bulk indexing fail error msg: " + e.getMessage(), e);

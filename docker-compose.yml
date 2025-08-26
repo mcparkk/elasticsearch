@@ -19,7 +19,14 @@ services:
     ports:
       - "9200:9200"
     networks:
-      - elastic-network
+      - elastic-network    
+    command: >
+          bash -c '
+          if [ ! -d plugins/analysis-nori ]; then
+            elasticsearch-plugin install analysis-nori;
+          fi &&
+          exec elasticsearch'
+
 
   kibana:
     image: docker.elastic.co/kibana/kibana:8.10.3
